@@ -1,0 +1,177 @@
+@use "../../styles/variables";
+
+.profile {
+  padding: 20px 30px;
+
+  &-overview {
+    background-color: variables.$clear-white;
+    padding: 25px 0;
+    border-radius: 4px;
+
+    &__role {
+      color: variables.$dark-gray;
+      font-style: italic;
+    }
+
+    &__avatar {
+      width: 120px;
+      height: 120px;
+      border: 5px solid variables.$dark-blue;
+      border-radius: 50%;
+
+      .avatar-image {
+        padding: 5px;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      .avatar-container {
+        position: relative;
+
+        .avatar-backdrop {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.4);
+          z-index: 2;
+          border-radius: 50%;
+          opacity: 0;
+          transition: opacity 0.2s ease;
+
+          &--active {
+            opacity: 1;
+          }
+        }
+
+        .avatar-add-icon {
+          position: absolute;
+          top: 1px;
+          right: 1px;
+          background-color: variables.$light-gray-1;
+          border-radius: 50%;
+          padding: 5px;
+          width: 28px;
+          height: 28px;
+          z-index: 10;
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .avatar-input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          z-index: 11;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &__list {
+      padding: 30px 0;
+
+      .list-item {
+        justify-content: flex-start;
+        color: variables.$dark-gray-1;
+        padding: 10px 30px;
+        border-bottom: 1px solid variables.$light-gray;
+        border-left: 5px solid transparent;
+        border-radius: 0;
+
+        &--active {
+          background-color: variables.$dark-blue !important;
+          border-left: 5px solid variables.$yellow;
+          color: variables.$clear-white;
+        }
+      }
+    }
+  }
+
+  &-detail {
+    background-color: variables.$clear-white;
+    padding: 10px 0;
+    border-radius: 4px;
+
+    &__title {
+      font-size: 16px;
+      padding: 0 0 10px 20px;
+      border-bottom: 1px solid variables.$light-gray;
+    }
+
+    &__description {
+      padding: 24px 150px 24px 56px;
+
+      .detail-item {
+        margin-bottom: 15px;
+
+        label {
+          cursor: pointer;
+        }
+
+        input {
+          padding: 8px 15px;
+        }
+      }
+    }
+  }
+
+  &-notify {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    max-width: 50vw;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: variables.$light-gray-1;
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    transform: translate(-50%, 0%);
+
+    .notify-options {
+      font-weight: 500;
+
+      &__reset {
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &__save {
+        cursor: pointer;
+        background-color: variables.$dark-green;
+        padding: 5px 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        position: relative;
+
+        &:hover {
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+          }
+        }
+
+        &:focus {
+          transform: scale(0.98);
+        }
+      }
+    }
+  }
+}

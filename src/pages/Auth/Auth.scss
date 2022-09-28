@@ -1,0 +1,266 @@
+@use "../../styles/variables.scss";
+@import "../../styles/mixin";
+
+.authpage {
+  color: variables.$dark-gray;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  background-color: variables.$clear-white;
+
+  &-left {
+    order: 1;
+    padding: 60px 0;
+    position: relative;
+
+    p {
+      color: variables.$gray;
+    }
+
+    &__img {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &__signup {
+      padding: 40px 120px;
+
+      @include tablet {
+        padding: 40px 60px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      label,
+      input {
+        font-size: 14px;
+      }
+
+      form {
+        .MuiFormControl-root {
+          width: 100%;
+        }
+      }
+    }
+    &__signin {
+      padding: 70px 120px 20px;
+
+      @include tablet {
+        padding: 60px;
+      }
+    }
+
+    &__roles {
+      padding: 60px 30px;
+
+      @include tablet {
+        padding: 50px 30px;
+      }
+
+      @include mobile {
+        padding: 50px;
+      }
+
+      h2 {
+        margin-bottom: 30px;
+      }
+
+      .roles-container {
+        padding: 50px;
+        background-color: variables.$light-gray-1;
+
+        @include tablet {
+          padding: 30px;
+        }
+
+        .roles-card {
+          background-color: variables.$clear-white;
+          border-radius: 8px;
+          box-shadow: 0 0 25px 0 rgba($color: variables.$black, $alpha: 0.1);
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          height: 150px;
+          min-width: 150px;
+
+          &__img {
+            svg {
+              width: 40px;
+              fill: variables.$primary-blue;
+            }
+          }
+
+          &__label {
+            p {
+              line-height: 1.2;
+              color: variables.$primary-blue;
+            }
+          }
+
+          &--active {
+            background-color: variables.$primary-blue;
+
+            svg {
+              fill: variables.$clear-white;
+            }
+            p {
+              color: variables.$clear-white;
+            }
+          }
+        }
+      }
+
+      .roles-button {
+        margin-top: 50px;
+
+        button {
+          max-width: 300px;
+          padding: 10px 0;
+        }
+      }
+    }
+
+    .text-variant {
+      color: variables.$primary-blue !important;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .signup-option {
+      &__or {
+        position: relative;
+        z-index: 0;
+
+        span {
+          display: inline-block;
+          background-color: variables.$clear-white;
+
+          &::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            width: 100%;
+            background-color: variables.$light-gray;
+          }
+        }
+      }
+
+      .social-options {
+        .option {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          border: 1px solid variables.$light-gray;
+          border-radius: 4px;
+          padding: 5px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &-google {
+            fill: variables.$google;
+          }
+
+          &-facebook {
+            fill: variables.$facebook;
+          }
+
+          span {
+            font-size: 18px;
+          }
+
+          &:hover {
+            background-color: variables.$pale-blue;
+            color: variables.$primary-blue;
+          }
+        }
+      }
+    }
+  }
+
+  &-right {
+    background-color: variables.$dark-blue;
+    order: 2;
+    min-height: 100vh;
+    position: relative;
+
+    @include mobile {
+      order: 0;
+    }
+
+    &__language {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      button {
+        min-width: auto;
+      }
+
+      &-tooltip {
+        margin-top: 6px !important;
+        background-color: variables.$clear-white !important;
+        width: 200px;
+        min-height: 200px;
+        box-shadow: 0 0 25px 0 rgba($color: variables.$black, $alpha: 0.2);
+        padding: 15px 20px !important;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 13px !important;
+
+        span {
+          color: variables.$clear-white !important;
+        }
+
+        .locale-item {
+          color: variables.$gray !important;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: variables.$black-1 !important;
+          }
+
+          cursor: pointer;
+
+          &--active {
+            color: variables.$primary-blue;
+          }
+
+          svg {
+            fill: variables.$primary-blue;
+          }
+        }
+      }
+    }
+
+    &__heading {
+      margin-top: 20px;
+      color: variables.$clear-white;
+      padding: 0 20px;
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      p {
+        color: variables.$pale-white;
+      }
+    }
+
+    &__img {
+      max-width: 450px;
+    }
+  }
+}

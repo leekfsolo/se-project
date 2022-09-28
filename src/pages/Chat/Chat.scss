@@ -1,0 +1,12 @@
+@use "../../styles/variables";
+
+.chat {
+  height: calc(100vh - 69px);
+
+  &-users {
+    height: 100%;
+    background-color: variables.$primary-blue;
+    overflow-y: auto;
+    border-radius: 4px;
+  }
+}

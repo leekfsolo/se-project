@@ -1,0 +1,14 @@
+@use "../../styles/variables";
+
+header {
+  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.2);
+
+  .menu-list {
+    color: variables.$dark-gray;
+
+    .menu-item {
+      font-weight: 500;
+      margin-right: 10px;
+    }
+  }
+}

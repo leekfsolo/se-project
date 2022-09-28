@@ -1,0 +1,13 @@
+@use "../../styles/variables";
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: variables.$clear-white;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
