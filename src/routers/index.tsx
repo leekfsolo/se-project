@@ -7,11 +7,11 @@ import {
   Routes,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useTransition } from "react-spring";
 import { useAppSelector } from "../app/hooks";
 import { globalSelector } from "../app/selector";
 import Loading from "../components/Loading/Loading";
 
-import { useTransition } from "react-spring";
 import { PageUrl } from "../configuration/enum";
 import Auth from "../pages/Auth";
 import AuthLogin from "../pages/Auth/template/AuthLogin";
@@ -28,6 +28,7 @@ import ChatBox from "../pages/Chat/template/ChatBox";
 import Profile from "../pages/Profile";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import MCP from "../pages/MCP";
 const Routers = () => {
   const globalState = useAppSelector(globalSelector);
   const { isLoading } = globalState;
@@ -70,11 +71,12 @@ const Routers = () => {
                 </AdminRoute>
               }
             />
+            <Route path={PageUrl.HOME_PAGE} element={<Home />} />
+            <Route path={PageUrl.MCP} element={<MCP />} />
             <Route path={PageUrl.PROFILE} element={<Profile />} />
             <Route path={PageUrl.CHAT} element={<Chat />}>
               <Route path=":id" element={<ChatBox />} />
             </Route>
-            <Route path={PageUrl.HOME_PAGE} element={<Home />} />
             <Route path="" element={<Navigate to={PageUrl.HOME_PAGE} />} />
             <Route path="*" element={<Navigate to={PageUrl.HOME_PAGE} />} />
           </Route>

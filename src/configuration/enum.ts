@@ -8,6 +8,7 @@ export enum PageUrl {
   ADMIN = "admin",
   CHAT = "chat",
   PROFILE = "profile",
+  MCP = "mcp",
 }
 
 export enum LocaleCode {
