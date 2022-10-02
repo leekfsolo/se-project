@@ -22,7 +22,7 @@ import { useTranslation } from "react-i18next";
 import { handleLoading } from "../../app/globalSlice";
 import { PageUrl } from "../../configuration/enum";
 import { useSelector } from "react-redux";
-import { userSelector } from "../../app/selector";
+import { authSelector, userSelector } from "../../app/selector";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -32,6 +32,7 @@ const Header = () => {
   const { t } = useTranslation();
   const isAuthorized = useGetJWT() ? true : false;
   const avatar = useSelector(userSelector).avatar;
+  const username = useSelector(authSelector).auth.userName;
 
   const logoutHandler = async () => {
     dispatch(handleLoading(true));
@@ -90,7 +91,9 @@ const Header = () => {
                 <Box sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar alt="Remy Sharp" src={avatar} />
+                      <Avatar alt="user-avatar" src={avatar}>
+                        {username.slice(0, 2)}
+                      </Avatar>
                     </IconButton>
                   </Tooltip>
                   <Menu

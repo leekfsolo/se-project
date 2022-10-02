@@ -1,12 +1,51 @@
 @use "../../styles/variables";
 
 .chat {
-  height: calc(100vh - 69px);
+  background-color: variables.$clear-white;
 
-  &-users {
+  &-list {
     height: 100%;
-    background-color: variables.$primary-blue;
-    overflow-y: auto;
-    border-radius: 4px;
+    border-right: 1px solid variables.$light-gray-2;
+    overflow: hidden;
+
+    &__search {
+      padding-bottom: 10px !important;
+      border-bottom: 1px solid variables.$light-gray !important;
+    }
+
+    &__container {
+      overflow-y: scroll;
+      max-height: calc(100% - 83px);
+
+      .list-user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        border-left: 3px solid transparent;
+
+        &.list-user--active,
+        &:hover {
+          background-color: #f6f9fe;
+          border-color: variables.$secondary-blue;
+        }
+      }
+    }
+  }
+
+  &-box {
+    overflow: hidden;
+
+    &__user {
+      border-bottom: 1px solid variables.$light-gray-2;
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+
+      .user-options {
+        svg {
+          fill: variables.$primary-blue;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
