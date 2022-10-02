@@ -8,11 +8,9 @@ import {
 } from "@react-google-maps/api";
 import { Box, Button } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import { useGetCurrentLocation } from "../../../utils/hooks/useGetCurrentLocation";
+import TextField from "@mui/material/TextField";
 
-const center = {
-  lat: 10.7721603889492,
-  lng: 106.70428276829283,
-};
 const libraries: any = ["places"];
 
 const MCPMainView = () => {
@@ -23,6 +21,7 @@ const MCPMainView = () => {
   const [duration, setDuration] = useState<string>("");
   const originRef = useRef<any>();
   const destinationRef = useRef<any>();
+  const center = useGetCurrentLocation();
 
   const calculateRoute = async () => {
     if (originRef.current && destinationRef.current) {
@@ -118,14 +117,10 @@ const MCPMainView = () => {
         >
           <Box className="d-flex align-items-center justify-content-between map-control">
             <Autocomplete>
-              <input type="text" placeholder="origin" ref={originRef} />
+              <TextField inputRef={originRef} label="Origin" />
             </Autocomplete>
             <Autocomplete>
-              <input
-                type="text"
-                placeholder="destination"
-                ref={destinationRef}
-              />
+              <TextField inputRef={destinationRef} label="Destination" />
             </Autocomplete>
             <Button variant="contained" onClick={calculateRoute}>
               Calculate Route
