@@ -1,7 +1,6 @@
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { Avatar, InputAdornment, TextField } from "@mui/material";
-import Config from "../../../configuration";
 
 type Props = {
   chatUsers: any[];

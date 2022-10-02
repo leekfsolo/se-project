@@ -29,11 +29,11 @@ const MainLayout = (props: Props) => {
   }, []);
 
   return (
-    <>
+    <div className="d-flex flex-column h-100">
       <Header />
       <main className="main-layout">{props.children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 

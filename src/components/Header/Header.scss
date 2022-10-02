@@ -1,7 +1,7 @@
 @use "../../styles/variables";
 
 header {
-  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   background-color: variables.$clear-white;
   z-index: 10;
   border-bottom: 1px solid variables.$light-gray-2;
