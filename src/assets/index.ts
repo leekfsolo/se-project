@@ -6,6 +6,7 @@ import DefaultUser from "./png/user.png";
 
 import { ReactComponent as FacebookSVG } from "./svg/facebook.svg";
 import { ReactComponent as GoogleSVG } from "./svg/google.svg";
+import { ReactComponent as SendSVG } from "./svg/send-svgrepo-com.svg";
 
 export {
   LogoBK,
@@ -15,4 +16,5 @@ export {
   FacebookSVG,
   GoogleSVG,
   DefaultUser,
+  SendSVG,
 };

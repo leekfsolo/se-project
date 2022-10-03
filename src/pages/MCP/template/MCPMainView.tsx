@@ -9,7 +9,7 @@ import {
 import { Box, Button } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { useGetCurrentLocation } from "../../../utils/hooks/useGetCurrentLocation";
-import TextField from "@mui/material/TextField";
+import { TextField } from "@mui/material";
 
 const libraries: any = ["places"];
 

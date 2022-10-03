@@ -5,6 +5,7 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import InfoIcon from "@mui/icons-material/Info";
 import SendIcon from "@mui/icons-material/Send";
 import dayjs from "dayjs";
+import { SendSVG } from "../../../assets";
 
 const ChatBox = () => {
   const messages = [];
@@ -45,9 +46,9 @@ const ChatBox = () => {
           </div>
         </div>
         <div className="message-input w-100 d-flex align-items-center justify-content-between gap-5">
-          <input placeholder="Send message..." className="w-100" />
+          <input placeholder="Type something to send..." className="w-100" />
           <Button className="d-flex align-items-center gap-2 message-send">
-            <SendIcon />
+            <SendSVG />
             Send
           </Button>
         </div>
