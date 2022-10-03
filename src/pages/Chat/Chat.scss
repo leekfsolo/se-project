@@ -3,37 +3,37 @@
 .chat {
   background-color: variables.$clear-white;
 
-  &-list {
-    height: 100%;
-    border-right: 1px solid variables.$light-gray-2;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+  // &-list {
+  //   height: 100%;
+  //   border-right: 1px solid variables.$light-gray-2;
+  //   overflow: hidden;
+  //   display: flex;
+  //   flex-direction: column;
 
-    &__search {
-      padding-bottom: 10px !important;
-      border-bottom: 1px solid variables.$light-gray !important;
-    }
+  //   &__search {
+  //     padding-bottom: 10px !important;
+  //     border-bottom: 1px solid variables.$light-gray !important;
+  //   }
 
-    &__container {
-      overflow-y: scroll;
-      flex: 1;
+  //   &__container {
+  //     overflow-y: scroll;
+  //     flex: 1;
 
-      .list-user {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-        border-left: 3px solid transparent;
+  //     .list-user {
+  //       display: flex;
+  //       align-items: center;
+  //       gap: 10px;
+  //       cursor: pointer;
+  //       border-left: 3px solid transparent;
 
-        &.list-user--active,
-        &:hover {
-          background-color: variables.$bg-light-gray;
-          border-color: variables.$secondary-blue;
-        }
-      }
-    }
-  }
+  //       &.list-user--active,
+  //       &:hover {
+  //         background-color: variables.$bg-light-gray;
+  //         border-color: variables.$secondary-blue;
+  //       }
+  //     }
+  //   }
+  // }
 
   &-box {
     overflow: hidden;
