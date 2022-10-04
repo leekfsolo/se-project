@@ -75,7 +75,7 @@ const Routers = () => {
             <Route path={PageUrl.MCP} element={<MCP />} />
             <Route path={PageUrl.PROFILE} element={<Profile />} />
             <Route path={PageUrl.CHAT} element={<Chat />}>
-              <Route path=":id" element={<ChatBox />} />
+              <Route path=":chatId" element={<ChatBox />} />
             </Route>
             <Route path="" element={<Navigate to={PageUrl.HOME_PAGE} />} />
             <Route path="*" element={<Navigate to={PageUrl.HOME_PAGE} />} />

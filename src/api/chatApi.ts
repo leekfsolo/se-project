@@ -1,9 +1,14 @@
 import axiosClient from "./axiosClient";
 
 const chatApi = {
-  getUsers: (userId: string) => {
-    const url = "/api/chat/users";
-    return axiosClient.get(url, { params: { userId } });
+  getChatList: () => {
+    const url = "/api/chat/list";
+    return axiosClient.get(url);
+  },
+
+  getChatData: (chatId: string) => {
+    const url = `/api/chat/${chatId}`;
+    return axiosClient.get(url);
   },
 };
 

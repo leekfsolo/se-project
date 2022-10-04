@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import userApi from "../../api/userApi";
+import { DefaultUser } from "../../assets";
 import Config from "../../configuration";
+import checkIfImageExists from "../../utils/helpers/checkIfImageExists";
 import { IFormInfo, IFormSignup } from "../Auth/template/interface";
 
 export const updateInfo = createAsyncThunk(
@@ -64,7 +66,13 @@ const user = createSlice({
       state.role = action.payload.data;
     });
     buider.addCase(getUserAvatar.fulfilled, (state, action) => {
-      state.avatar = Config.CloudinaryImageUrl + action.payload.data;
+      const avatarSrc = Config.CloudinaryImageUrl + action.payload.data;
+      let userAvatar = DefaultUser;
+
+      checkIfImageExists(avatarSrc, (exists) => {
+        if (exists) userAvatar = avatarSrc;
+      });
+      state.avatar = userAvatar;
     });
     buider.addCase(updateUserAvatar.fulfilled, (state, action) => {
       state.avatar = Config.CloudinaryImageUrl + action.payload.data;

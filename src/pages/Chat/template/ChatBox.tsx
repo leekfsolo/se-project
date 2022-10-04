@@ -1,59 +1,56 @@
-import React from "react";
-import { Avatar, Button } from "@mui/material";
-import PhoneIcon from "@mui/icons-material/Phone";
-import VideocamIcon from "@mui/icons-material/Videocam";
-import InfoIcon from "@mui/icons-material/Info";
-import SendIcon from "@mui/icons-material/Send";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { SendSVG } from "../../../assets";
+
+import {
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
+  Avatar,
+  ConversationHeader,
+  TypingIndicator,
+  EllipsisButton,
+  MessageSeparator,
+} from "@chatscope/chat-ui-kit-react";
+import { DefaultUser } from "../../../assets";
+import { useNavigate, useParams } from "react-router-dom";
+import { getChatData } from "../chatSlice";
+import { useAppDispatch } from "../../../app/hooks";
+import { useSelector } from "react-redux";
+import { chatSelector } from "../../../app/selector";
 
 const ChatBox = () => {
-  const messages = [];
+  const [messageInputValue, setMessageInputValue] = useState("");
+  const chatData = useSelector(chatSelector).data;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { chatId = "" } = useParams();
+
+  useEffect(() => {
+    dispatch(getChatData(chatId))
+      .unwrap()
+      .catch((e) => {
+        navigate("../");
+      });
+  }, []);
 
   return (
-    <div className="chat-box h-100">
-      <div className="chat-box__user p-3 d-flex align-items-center justify-content-between">
-        <div className="user-info d-flex align-items-center gap-2">
-          <Avatar src="user-avatar" />
-          <span>Ken</span>
-        </div>
-
-        <div className="user-options d-flex align-items-center gap-2 me-2">
-          <div className="user-options__item">
-            <PhoneIcon />
-          </div>
-          <div className="user-options__item">
-            <VideocamIcon />
-          </div>
-          <div className="user-options__item">
-            <InfoIcon />
-          </div>
-        </div>
-      </div>
-
-      <div className="chat-box__messages">
-        <div className="message-container">
-          <div className="message-time text-center">
-            {dayjs().format("HH:mm, DD/MM/YYYY")}
-          </div>
-          <div className="user-message sender">
-            <Avatar className="avatar" />
-            <div className="message">asdfqwoeifsadfjksa</div>
-          </div>
-          <div className="user-message receiver">
-            <Avatar className="avatar" />
-            <div className="message">12343346456</div>
-          </div>
-        </div>
-        <div className="message-input w-100 d-flex align-items-center justify-content-between gap-5">
-          <input placeholder="Type something to send..." className="w-100" />
-          <Button className="d-flex align-items-center gap-2 message-send">
-            <SendSVG />
-            Send
-          </Button>
-        </div>
-      </div>
-    </div>
+    <ChatContainer>
+      <ConversationHeader>
+        <ConversationHeader.Back />
+        <Avatar src={DefaultUser} name="Zoe" />
+        <ConversationHeader.Content userName="Zoe" />
+        <ConversationHeader.Actions>
+          <EllipsisButton orientation="vertical" />
+        </ConversationHeader.Actions>
+      </ConversationHeader>
+      <MessageList></MessageList>
+      <MessageInput
+        placeholder="Type message here"
+        value={messageInputValue}
+        onChange={(val) => setMessageInputValue(val)}
+      />
+    </ChatContainer>
   );
 };
 

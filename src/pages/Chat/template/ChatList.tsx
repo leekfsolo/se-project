@@ -6,8 +6,6 @@ import {
   ConversationList,
   Avatar,
 } from "@chatscope/chat-ui-kit-react";
-import checkIfImageExists from "../../../utils/helpers/checkIfImageExists";
-import { DefaultUser } from "../../../assets";
 
 type Props = {
   chatUsers: any[];
@@ -21,12 +19,6 @@ const ChatList = (props: Props) => {
       <Search placeholder="Search..." />
       <ConversationList className="chat-list__container">
         {chatUsers.map((user, idx) => {
-          let userAvatar = DefaultUser;
-
-          checkIfImageExists(user.avatar, (exists) => {
-            if (exists) userAvatar = user.avatar;
-          });
-
           return (
             <Conversation
               key={user.userId}
@@ -36,7 +28,7 @@ const ChatList = (props: Props) => {
               active={idx === 0}
             >
               <Avatar
-                src={userAvatar}
+                src={user.avatar}
                 name={user.username}
                 status="available"
               />
