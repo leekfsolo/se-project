@@ -4,18 +4,18 @@ import ChatList from "./ChatList";
 import { MainContainer } from "@chatscope/chat-ui-kit-react";
 
 type Props = {
-  chatUsers: any[];
+  chatList: any[];
 };
 
 const ChatMainView = (props: Props) => {
-  const { chatUsers } = props;
+  const { chatList } = props;
 
   useEffect(() => {}, []);
 
   return (
     <div style={{ position: "relative", height: "500px" }}>
       <MainContainer responsive>
-        <ChatList chatUsers={chatUsers} />
+        <ChatList chatList={chatList} />
         <Outlet />
       </MainContainer>
     </div>

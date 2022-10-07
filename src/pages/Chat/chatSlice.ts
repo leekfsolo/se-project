@@ -21,20 +21,20 @@ export const getChatData = createAsyncThunk(
 
 const chat = createSlice({
   name: "chat",
-  initialState: { users: Array<any>(), data: Array<any>() },
+  initialState: { chatList: Array<any>(), data: Array<any>() },
   reducers: {},
   extraReducers: (buider) => {
     buider.addCase(getChatList.fulfilled, (state, action) => {
-      state.users = action.payload.data.map((user: any) => {
-        const avatarSrc = Config.CloudinaryImageUrl + user.avatar;
+      state.chatList = action.payload.data.map((chat: any) => {
+        const avatarSrc = Config.CloudinaryImageUrl + chat.avatar;
         let userAvatar = DefaultUser;
 
         checkIfImageExists(avatarSrc, (exists) => {
           if (exists) userAvatar = avatarSrc;
         });
 
-        user.avatar = userAvatar;
-        return user;
+        chat.avatar = userAvatar;
+        return chat;
       });
     });
     buider.addCase(getChatData.fulfilled, (state, action) => {

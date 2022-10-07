@@ -8,7 +8,7 @@ import ChatMainView from "./template/ChatMainView";
 
 const Chat = () => {
   const dispatch = useAppDispatch();
-  const chatUsers = useSelector(chatSelector).users;
+  const chatList = useSelector(chatSelector).chatList;
 
   useEffect(() => {
     dispatch(getChatList());
@@ -16,7 +16,7 @@ const Chat = () => {
 
   return (
     <MainLayout>
-      <ChatMainView chatUsers={chatUsers} />
+      <ChatMainView chatList={chatList} />
     </MainLayout>
   );
 };

@@ -8,28 +8,28 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 
 type Props = {
-  chatUsers: any[];
+  chatList: any[];
 };
 
 const ChatList = (props: Props) => {
-  const { chatUsers } = props;
+  const { chatList } = props;
 
   return (
     <Sidebar position="left" className="chat-list" scrollable={true}>
       <Search placeholder="Search..." />
       <ConversationList className="chat-list__container">
-        {chatUsers.map((user, idx) => {
+        {chatList.map((chat, idx) => {
           return (
             <Conversation
-              key={user.userId}
-              name={user.username}
+              key={chat.userId}
+              name={chat.username}
               info=""
               className="list-user"
               active={idx === 0}
             >
               <Avatar
-                src={user.avatar}
-                name={user.username}
+                src={chat.avatar}
+                name={chat.username}
                 status="available"
               />
             </Conversation>

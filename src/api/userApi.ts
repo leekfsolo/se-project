@@ -12,6 +12,11 @@ const userApi = {
     return axiosClient.put(url, data, { params: data });
   },
 
+  getUser: (userId: string) => {
+    const url = `/api/users/${userId}`;
+    return axiosClient.get(url);
+  },
+
   getRoles: () => {
     const url = "/api/users/roles";
     return axiosClient.get(url);

@@ -50,6 +50,7 @@ const AuthSignup = () => {
       customToast(ToastType.ERROR, msgValue);
     }
 
+    setCheckboxValue(false);
     dispatch(handleLoading(false));
   };
 

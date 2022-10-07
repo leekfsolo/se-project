@@ -67,7 +67,7 @@ const MCPMainView = () => {
   return (
     <div className="w-100 h-100 position-relative mt-2 mcp">
       <LoadScript
-        googleMapsApiKey="AIzaSyC9j30TST3NDMqcJMsXClZphUMiHyBSqmk"
+        googleMapsApiKey="AIzaSyAU45eylEiWVwWi8SQnUV0NfXmBgFs0DQI"
         id="google-map"
         libraries={libraries}
       >
