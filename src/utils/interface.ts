@@ -5,3 +5,12 @@ export interface LocaleItem {
   code: LocaleCode;
   flag: string;
 }
+
+export interface Message {
+  content: string;
+  message_id: string;
+  userId: string;
+  created: string;
+  username: string;
+  avatar: string;
+}

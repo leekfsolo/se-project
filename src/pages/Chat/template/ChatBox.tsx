@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import dayjs from "dayjs";
 
 import {
   ChatContainer,
@@ -8,43 +7,63 @@ import {
   MessageInput,
   Avatar,
   ConversationHeader,
-  TypingIndicator,
   EllipsisButton,
-  MessageSeparator,
 } from "@chatscope/chat-ui-kit-react";
 import { DefaultUser } from "../../../assets";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getChatData } from "../chatSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { useSelector } from "react-redux";
-import { chatSelector } from "../../../app/selector";
+import { authSelector, chatSelector } from "../../../app/selector";
+import { LocationState } from "./ChatList";
 
 const ChatBox = () => {
   const [messageInputValue, setMessageInputValue] = useState("");
   const chatData = useSelector(chatSelector).data;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { state } = useLocation().state as { state: LocationState };
+  const userId = useSelector(authSelector).auth.id;
   const { chatId = "" } = useParams();
 
   useEffect(() => {
     dispatch(getChatData(chatId))
       .unwrap()
+      .then()
       .catch((e) => {
         navigate("../");
       });
   }, []);
 
+  console.log(state);
+
   return (
     <ChatContainer>
       <ConversationHeader>
         <ConversationHeader.Back />
-        <Avatar src={DefaultUser} name="Zoe" />
-        <ConversationHeader.Content userName="Zoe" />
+        <Avatar src={state.avatar} name={state.username} />
+        <ConversationHeader.Content userName={state.username} />
         <ConversationHeader.Actions>
           <EllipsisButton orientation="vertical" />
         </ConversationHeader.Actions>
       </ConversationHeader>
-      <MessageList></MessageList>
+      <MessageList>
+        {chatData.messages.map((msg) => {
+          const isHavingAvatar = msg.avatar !== "";
+          return (
+            <Message
+              model={{
+                message: msg.content,
+                direction: msg.userId === userId ? "outgoing" : "incoming",
+                position: "single",
+              }}
+              avatarSpacer={!isHavingAvatar}
+            >
+              {isHavingAvatar && <Avatar src={msg.avatar} name="avatar" />}
+            </Message>
+          );
+        })}
+      </MessageList>
       <MessageInput
         placeholder="Type message here"
         value={messageInputValue}
