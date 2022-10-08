@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ChatList from "./ChatList";
 import { MainContainer } from "@chatscope/chat-ui-kit-react";
 
@@ -9,8 +9,14 @@ type Props = {
 
 const ChatMainView = (props: Props) => {
   const { chatList } = props;
+  const navigate = useNavigate();
+  const { chatId = "" } = useParams();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (chatId === "" && chatList.length > 0) {
+      navigate(chatList[0].chatId);
+    }
+  }, [chatList]);
 
   return (
     <div style={{ position: "relative", height: "500px" }}>

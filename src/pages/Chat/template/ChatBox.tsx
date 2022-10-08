@@ -9,20 +9,17 @@ import {
   ConversationHeader,
   EllipsisButton,
 } from "@chatscope/chat-ui-kit-react";
-import { DefaultUser } from "../../../assets";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getChatData } from "../chatSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { useSelector } from "react-redux";
 import { authSelector, chatSelector } from "../../../app/selector";
-import { LocationState } from "./ChatList";
 
 const ChatBox = () => {
   const [messageInputValue, setMessageInputValue] = useState("");
   const chatData = useSelector(chatSelector).data;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { state } = useLocation().state as { state: LocationState };
   const userId = useSelector(authSelector).auth.id;
   const { chatId = "" } = useParams();
 
@@ -33,16 +30,17 @@ const ChatBox = () => {
       .catch((e) => {
         navigate("../");
       });
-  }, []);
-
-  console.log(state);
+  }, [chatId]);
 
   return (
     <ChatContainer>
       <ConversationHeader>
         <ConversationHeader.Back />
-        <Avatar src={state.avatar} name={state.username} />
-        <ConversationHeader.Content userName={state.username} />
+        <Avatar
+          src={chatData.receiverAvatar}
+          name={chatData.receiverUsername}
+        />
+        <ConversationHeader.Content userName={chatData.receiverUsername} />
         <ConversationHeader.Actions>
           <EllipsisButton orientation="vertical" />
         </ConversationHeader.Actions>
@@ -57,6 +55,7 @@ const ChatBox = () => {
                 direction: msg.userId === userId ? "outgoing" : "incoming",
                 position: "single",
               }}
+              key={msg.message_id}
               avatarSpacer={!isHavingAvatar}
             >
               {isHavingAvatar && <Avatar src={msg.avatar} name="avatar" />}

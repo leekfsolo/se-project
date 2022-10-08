@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import chatApi from "../../api/chatApi";
-import { DefaultUser } from "../../assets";
 import Config from "../../configuration";
-import checkIfImageExists from "../../utils/helpers/checkIfImageExists";
 import { Message } from "../../utils/interface";
 
 export const getChatList = createAsyncThunk("chat/list", async () => {
@@ -24,25 +22,24 @@ const chat = createSlice({
   name: "chat",
   initialState: {
     chatList: Array<any>(),
-    data: { messages: Array<Message>() },
+    data: {
+      receiverAvatar: "",
+      receiverUsername: "",
+      messages: Array<Message>(),
+    },
   },
   reducers: {},
   extraReducers: (buider) => {
     buider.addCase(getChatList.fulfilled, (state, action) => {
       state.chatList = action.payload.data.map((chat: any) => {
-        const avatarSrc = Config.CloudinaryImageUrl + chat.avatar;
-        let userAvatar = DefaultUser;
-
-        checkIfImageExists(avatarSrc, (exists: boolean) => {
-          if (exists) userAvatar = avatarSrc;
-        });
-
-        chat.avatar = userAvatar;
+        chat.avatar = Config.CloudinaryImageUrl + chat.avatar;
         return chat;
       });
     });
     buider.addCase(getChatData.fulfilled, (state, action) => {
       const data = action.payload.data;
+      const receiverAvatarSrc = Config.CloudinaryImageUrl + data.receiverAvatar;
+      data.receiverAvatar = receiverAvatarSrc;
       data.messages.map((msg: Message, idx: number) => {
         // generate image src
         if (idx < data.messages.length - 1) {
@@ -51,14 +48,7 @@ const chat = createSlice({
             return msg;
           }
         }
-        const avatarSrc = Config.CloudinaryImageUrl + msg.avatar;
-        let userAvatar = DefaultUser;
-
-        checkIfImageExists(avatarSrc, (exists: boolean) => {
-          if (exists) userAvatar = avatarSrc;
-        });
-
-        msg.avatar = userAvatar;
+        msg.avatar = Config.CloudinaryImageUrl + msg.avatar;
 
         return msg;
       });

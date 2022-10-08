@@ -6,12 +6,7 @@ import {
   ConversationList,
   Avatar,
 } from "@chatscope/chat-ui-kit-react";
-import { useNavigate } from "react-router-dom";
-
-export type LocationState = {
-  username: string;
-  avatar: string;
-};
+import { useNavigate, useParams } from "react-router-dom";
 
 type Props = {
   chatList: any[];
@@ -19,9 +14,10 @@ type Props = {
 
 const ChatList = (props: Props) => {
   const { chatList } = props;
+  const { chatId = "" } = useParams();
   const navigate = useNavigate();
-  const navigateTo = (path: string, state?: LocationState) => {
-    navigate(path, { replace: false, state });
+  const navigateTo = (path: string) => {
+    navigate(path, { replace: false });
   };
 
   return (
@@ -35,13 +31,8 @@ const ChatList = (props: Props) => {
               name={chat.username}
               info=""
               className="list-user"
-              active={idx === 0}
-              onClick={() =>
-                navigateTo(chat.chatId, {
-                  username: chat.username,
-                  avatar: chat.avatar,
-                })
-              }
+              active={chat.chatId === chatId}
+              onClick={() => navigateTo(chat.chatId)}
             >
               <Avatar
                 src={chat.avatar}
