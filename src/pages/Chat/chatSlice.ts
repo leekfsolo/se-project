@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import chatApi from "../../api/chatApi";
 import Config from "../../configuration";
-import { Message } from "../../utils/interface";
+import { IChatMessage } from "../../utils/interface";
 
 export const getChatList = createAsyncThunk("chat/list", async () => {
   const res = chatApi.getChatList();
@@ -25,7 +25,8 @@ const chat = createSlice({
     data: {
       receiverAvatar: "",
       receiverUsername: "",
-      messages: Array<Message>(),
+      lastAccessTime: new Date(),
+      messages: Array<IChatMessage>(),
     },
   },
   reducers: {},
@@ -40,7 +41,7 @@ const chat = createSlice({
       const data = action.payload.data;
       const receiverAvatarSrc = Config.CloudinaryImageUrl + data.receiverAvatar;
       data.receiverAvatar = receiverAvatarSrc;
-      data.messages.map((msg: Message, idx: number) => {
+      data.messages.map((msg: IChatMessage, idx: number) => {
         // generate image src
         if (idx < data.messages.length - 1) {
           if (msg.userId === data.messages[idx + 1].userId) {

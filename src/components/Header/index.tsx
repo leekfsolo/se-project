@@ -87,7 +87,10 @@ const Header = () => {
               <div className="col d-flex align-items-center justify-content-end gap-4">
                 <Globe CStyle={{ fill: "#999" }} />
                 <NotificationsNoneOutlinedIcon sx={{ fill: "#999" }} />
-                <ChatBubbleOutlineOutlinedIcon sx={{ fill: "#999" }} />
+                <ChatBubbleOutlineOutlinedIcon
+                  sx={{ fill: "#999", cursor: "pointer" }}
+                  onClick={() => navigateTo(PageUrl.CHAT)}
+                />
                 <Box sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

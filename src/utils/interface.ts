@@ -6,11 +6,11 @@ export interface LocaleItem {
   flag: string;
 }
 
-export interface Message {
+export interface IChatMessage {
   content: string;
-  message_id: string;
+  message_id?: string;
   userId: string;
-  created: string;
-  username: string;
+  created?: string;
+  username?: string;
   avatar: string;
 }
