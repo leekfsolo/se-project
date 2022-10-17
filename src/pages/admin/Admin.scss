@@ -1,0 +1,83 @@
+@use "../../styles/variables";
+
+.admin {
+  min-height: inherit;
+  overflow-x: hidden;
+
+  &-container {
+    min-height: inherit;
+  }
+
+  &-sidenav {
+    height: calc(100vh - 50px);
+    width: 250px;
+    background: variables.$black-theme;
+    color: variables.$clear-white;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    &__header {
+      color: variables.$clear-white;
+      padding: 24px 0 8px;
+
+      h6 {
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      svg {
+        fill: variables.$clear-white;
+      }
+    }
+
+    &__divider {
+      background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0),
+        rgb(255, 255, 255),
+        rgba(255, 255, 255, 0)
+      );
+      margin-top: 1rem !important;
+      opacity: 0.25;
+      height: 1px;
+    }
+
+    &__option {
+      color: variables.$clear-white;
+      padding: 15px;
+      margin-bottom: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.1s linear;
+
+      svg {
+        fill: variables.$clear-white;
+      }
+
+      &.active {
+        background: variables.$blue-theme;
+      }
+
+      &:hover {
+        background-color: variables.$light-gray-3;
+      }
+    }
+  }
+
+  &-page {
+    min-height: inherit;
+    margin-left: 300px;
+    padding: 16px;
+  }
+
+  &-breadcrumb {
+    p {
+      color: variables.$dark-blue;
+
+      &.title {
+        font-weight: 700;
+      }
+    }
+  }
+}

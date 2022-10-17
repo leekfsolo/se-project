@@ -20,7 +20,7 @@ import PrivateRoute from "./PrivateRoute";
 import AuthRoles from "../pages/Auth/template/AuthRoles";
 import PrivateOutlet from "./PrivateOutlet";
 import AdminRoute from "./AdminRoute";
-import StaffsManagement from "../pages/admin/StaffsManagement";
+import AdminHome from "../pages/admin";
 import Home from "../pages/Home";
 import useLoading from "../utils/hooks/useLoading";
 import Chat from "../pages/Chat";
@@ -67,10 +67,15 @@ const Routers = () => {
               path={`${PageUrl.ADMIN}/${PageUrl.HOME_PAGE}`}
               element={
                 <AdminRoute>
-                  <StaffsManagement />
+                  <AdminHome />
                 </AdminRoute>
               }
-            />
+            >
+              <Route path={PageUrl.DASHBOARD} element />
+              <Route path={PageUrl.STAFF_MANAGEMENT} element />
+              <Route path={PageUrl.MCP_MANAGEMENT} element />
+              <Route path={PageUrl.VEHICLE_MANAGEMENT} element />
+            </Route>
             <Route path={PageUrl.HOME_PAGE} element={<Home />} />
             <Route path={PageUrl.MCP} element={<MCP />} />
             <Route path={PageUrl.PROFILE} element={<Profile />} />

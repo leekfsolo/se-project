@@ -25,7 +25,7 @@ const chat = createSlice({
     data: {
       receiverAvatar: "",
       receiverUsername: "",
-      lastAccessTime: new Date(),
+      lastAccessTime: "",
       messages: Array<IChatMessage>(),
     },
   },
@@ -50,10 +50,8 @@ const chat = createSlice({
           }
         }
         msg.avatar = Config.CloudinaryImageUrl + msg.avatar;
-
         return msg;
       });
-
       state.data = data;
     });
   },

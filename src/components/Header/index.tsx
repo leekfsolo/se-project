@@ -49,7 +49,7 @@ const Header = () => {
 
   const navigateTo = (path: string) => {
     handleCloseUserMenu();
-    if (path === "logout") {
+    if (path === PageUrl.LOGOUT) {
       logoutHandler()
         .then((res) => {})
         .catch((err) => {});
@@ -79,7 +79,12 @@ const Header = () => {
               <div className="col d-flex align-items-center gap-4">
                 <img src={LogoBK} alt="" className="img-fluid" width={60} />
                 <nav className="menu-list d-flex align-items-center gap-3">
-                  <div className="menu-item">Trang chủ</div>
+                  <div
+                    className="menu-item"
+                    onClick={() => navigateTo(PageUrl.HOME_PAGE)}
+                  >
+                    Trang chủ
+                  </div>
                   <div className="menu-item">Tổng quan</div>
                   <div className="menu-item">Lịch làm việc</div>
                 </nav>

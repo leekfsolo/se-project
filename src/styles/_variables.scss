@@ -1,3 +1,5 @@
+// colors
+
 $black: #000;
 $black-1: #111;
 $clear-white: #fff;
@@ -23,3 +25,7 @@ $light-gray-3: #8a8d91;
 $bg-light-gray: #f6f9fe;
 
 $error: #d32f2f;
+
+// theme
+$black-theme: linear-gradient(195deg, $dark-gray-1, $black-1);
+$blue-theme: linear-gradient(195deg, $secondary-blue, $primary-blue);
