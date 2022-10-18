@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AdminSidenavOption } from "./model";
 import AdminBreadCrumb from "./template/AdminBreadCrumb";
@@ -18,10 +18,11 @@ import customToast, {
 } from "../../components/CustomToast/customToast";
 import { useTranslation } from "react-i18next";
 
-const StaffsManagement = () => {
+const Admin = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const contentRef = useRef<any>(null);
 
   const [sidenavOptions, setSidenavOptions] = useState<
     Array<AdminSidenavOption>
@@ -105,7 +106,7 @@ const StaffsManagement = () => {
   }, []);
 
   return (
-    <div className="h-100 admin">
+    <div className="h-100 admin" ref={contentRef}>
       <div className="h-100">
         <Sidenav
           sidenavOptions={sidenavOptions}
@@ -113,12 +114,17 @@ const StaffsManagement = () => {
         />
 
         <div className="admin-page">
-          <AdminBreadCrumb title={activeSidenavTitle} />
-          <Outlet />
+          <div className="admin-wrapper">
+            <AdminBreadCrumb title={activeSidenavTitle} iref={contentRef} />
+
+            <div className="admin-content">
+              <Outlet />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default StaffsManagement;
+export default Admin;

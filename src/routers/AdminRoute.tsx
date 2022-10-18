@@ -29,7 +29,7 @@ const AdminRoute: FC<Props> = (props: Props) => {
     getRoleHandle();
   }, []);
 
-  return true ? (
+  return isAdmin && isAuthenticated ? (
     <>{children}</>
   ) : (
     <Navigate to={`/${PageUrl.AUTH}/${PageUrl.LOGIN}`} />

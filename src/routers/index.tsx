@@ -29,6 +29,10 @@ import Profile from "../pages/Profile";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import MCP from "../pages/MCP";
+import Dashboard from "../pages/admin/template/Dashboard";
+import StaffManagement from "../pages/admin/template/StaffManagement";
+import MCPManagement from "../pages/admin/template/MCPManagement";
+import VehicleManagement from "../pages/admin/template/VehicleManagement";
 const Routers = () => {
   const globalState = useAppSelector(globalSelector);
   const { isLoading } = globalState;
@@ -71,10 +75,19 @@ const Routers = () => {
                 </AdminRoute>
               }
             >
-              <Route path={PageUrl.DASHBOARD} element />
-              <Route path={PageUrl.STAFF_MANAGEMENT} element />
-              <Route path={PageUrl.MCP_MANAGEMENT} element />
-              <Route path={PageUrl.VEHICLE_MANAGEMENT} element />
+              <Route path={PageUrl.DASHBOARD} element={<Dashboard />} />
+              <Route
+                path={PageUrl.STAFF_MANAGEMENT}
+                element={<StaffManagement />}
+              />
+              <Route
+                path={PageUrl.MCP_MANAGEMENT}
+                element={<MCPManagement />}
+              />
+              <Route
+                path={PageUrl.VEHICLE_MANAGEMENT}
+                element={<VehicleManagement />}
+              />
             </Route>
             <Route path={PageUrl.HOME_PAGE} element={<Home />} />
             <Route path={PageUrl.MCP} element={<MCP />} />

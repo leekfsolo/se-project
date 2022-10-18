@@ -1,17 +1,24 @@
-import React from "react";
+import React, { MutableRefObject } from "react";
 
 import { Breadcrumbs, Link, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import useScrollTop from "../../../../utils/hooks/useScrollTop";
 
 type Props = {
   title: string;
+  iref: MutableRefObject<any>;
 };
 
 const AdminBreadCrumb = (props: Props) => {
-  const { title } = props;
+  const { title, iref } = props;
+  const scrollTop = useScrollTop(iref);
 
   return (
-    <div className="py-2 admin-breadcrumb">
+    <div
+      className={`p-3 admin-breadcrumb ${
+        scrollTop > 10 ? "admin-breadcrumb--scrolled" : ""
+      }`}
+    >
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="">
           <HomeIcon />
