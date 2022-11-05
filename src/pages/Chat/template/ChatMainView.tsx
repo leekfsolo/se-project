@@ -3,18 +3,17 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ChatList from "./ChatList";
 import { MainContainer } from "@chatscope/chat-ui-kit-react";
 import { PageUrl } from "../../../configuration/enum";
+import { useGetChatListQuery } from "../chatSlice";
 
-type Props = {
-  chatList: any[];
-};
+type Props = {};
 
 const ChatMainView = (props: Props) => {
-  const { chatList } = props;
   const navigate = useNavigate();
   const { chatId = "" } = useParams();
+  const { data: chatList } = useGetChatListQuery();
 
   useEffect(() => {
-    if (chatList.length > 0) {
+    if (chatList && chatList.length > 0) {
       const firstChatId = chatList[0].chatId;
       if (chatId === "") {
         navigate(firstChatId);

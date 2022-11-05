@@ -6,4 +6,4 @@ export const userSelector = (state: RootState) => state.user;
 
 export const globalSelector = (state: RootState) => state.global;
 
-export const chatSelector = (state: RootState) => state.chat;
+// export const chatSelector = (state: RootState) => state.chat;

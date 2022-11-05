@@ -9,13 +9,14 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../../app/selector";
+import { ChatItem } from "../interface";
 
 type Props = {
-  chatList: any[];
+  chatList?: ChatItem[];
 };
 
 const ChatList = (props: Props) => {
-  const { chatList } = props;
+  const { chatList = [] } = props;
   const { chatId = "" } = useParams();
   const navigate = useNavigate();
   const navigateTo = (path: string) => {

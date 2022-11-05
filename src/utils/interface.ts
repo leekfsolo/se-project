@@ -5,12 +5,3 @@ export interface LocaleItem {
   code: LocaleCode;
   flag: string;
 }
-
-export interface IChatMessage {
-  content: string;
-  message_id?: string;
-  userId: string;
-  created?: string;
-  username?: string;
-  avatar: string;
-}

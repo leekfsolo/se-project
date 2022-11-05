@@ -11,17 +11,17 @@ import {
   MessageSeparator,
 } from "@chatscope/chat-ui-kit-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getChatData } from "../chatSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { useSelector } from "react-redux";
-import { authSelector, chatSelector } from "../../../app/selector";
+import { authSelector } from "../../../app/selector";
 import { HubConnection } from "@microsoft/signalr";
 import { HubConnectionBuilder } from "@microsoft/signalr/dist/esm/HubConnectionBuilder";
 import Config from "../../../configuration";
 import { LogLevel } from "@microsoft/signalr/dist/esm/ILogger";
-import { IChatMessage } from "../../../utils/interface";
+import { IChatMessage } from "../interface";
 import { handleLoading } from "../../../app/globalSlice";
 import dayjs from "dayjs";
+import { useGetChatDataQuery } from "../chatSlice";
 
 const ChatBox = () => {
   const [messageInputValue, setMessageInputValue] = useState<string>("");
@@ -29,11 +29,11 @@ const ChatBox = () => {
   const [messageConnection, setMessageConnection] = useState<
     Array<IChatMessage>
   >([]);
-  const chatData = useSelector(chatSelector).data;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userId = useSelector(authSelector).auth.id;
   const { chatId = "" } = useParams();
+  const { data: chatData, isSuccess } = useGetChatDataQuery(chatId);
 
   const sendMessageHandler = async () => {
     if (hubConnection) {
@@ -54,7 +54,7 @@ const ChatBox = () => {
     try {
       (async () => {
         dispatch(handleLoading(true));
-        await dispatch(getChatData(chatId)).unwrap();
+        // await dispatch(getChatData(chatId)).unwrap();
 
         const connection = new HubConnectionBuilder()
           .withUrl(`${Config.apiConfig.endPoint}/hub`)
@@ -88,7 +88,7 @@ const ChatBox = () => {
     }
   }, [chatId]);
 
-  return (
+  return isSuccess ? (
     <ChatContainer>
       <ConversationHeader>
         <ConversationHeader.Back />
@@ -149,6 +149,8 @@ const ChatBox = () => {
         fancyScroll={true}
       />
     </ChatContainer>
+  ) : (
+    <div></div>
   );
 };
 
