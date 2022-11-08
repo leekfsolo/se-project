@@ -3,7 +3,7 @@ import Config from "../../configuration";
 import { IChatData, IChatDataResponse } from "./interface";
 import { ChatItem, IChatListResponse } from "./interface";
 
-export const chatSlice = apiSlice.injectEndpoints({
+export const chatApiSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getChatList: build.query<ChatItem[], void>({
       query: () => ({
@@ -37,4 +37,4 @@ export const chatSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetChatListQuery, useGetChatDataQuery } = chatSlice;
+export const { useGetChatListQuery, useGetChatDataQuery } = chatApiSlice;

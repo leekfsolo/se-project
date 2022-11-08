@@ -11,7 +11,7 @@ import customToast, {
 import NotifyPopup from "../../../components/NotifyPopup";
 import { getBase64 } from "../../../utils/helpers/getBase64";
 import { matchStringAfterWord } from "../../../utils/regex";
-import { updateUserAvatar } from "../userSlice";
+import { useUpdateAvatarMutation } from "../userApiSlice";
 import ProfileDetail from "./ProfileDetail";
 import ProfileOverview from "./ProfileOverview";
 
@@ -25,6 +25,7 @@ const ProfileMainView = () => {
   const { id: userId } = auth;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const [updateUserAvatar] = useUpdateAvatarMutation();
 
   const handleUploadFile = (file: File) => {
     setUploadedFile(file);
@@ -39,9 +40,10 @@ const ProfileMainView = () => {
         const matchUrl = result.data.url.match(regex);
 
         if (matchUrl) {
-          const uploadResponse: any = await dispatch(
-            updateUserAvatar({ userId, url: matchUrl[0] })
-          ).unwrap();
+          const uploadResponse: any = await updateUserAvatar({
+            userId,
+            url: matchUrl[0],
+          }).unwrap();
           const { success, message } = uploadResponse;
           const msgValue = t(`${message}`);
           if (success) {

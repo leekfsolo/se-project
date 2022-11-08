@@ -2,7 +2,6 @@ import React from "react";
 
 import useGetJWT from "../../utils/hooks/useGetJWT";
 import { useAppDispatch } from "../../app/hooks";
-import { logout } from "../../pages/Auth/authSlice";
 import { LogoBK } from "../../assets";
 import Globe from "../Globe/Globe";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
@@ -23,6 +22,7 @@ import { handleLoading } from "../../app/globalSlice";
 import { PageUrl } from "../../configuration/enum";
 import { useSelector } from "react-redux";
 import { authSelector, userSelector } from "../../app/selector";
+import { useLogoutMutation } from "../../pages/Auth/authApiSlice";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -33,10 +33,11 @@ const Header = () => {
   const isAuthorized = useGetJWT() ? true : false;
   const avatar = useSelector(userSelector).avatar;
   const username = useSelector(authSelector).auth.userName;
+  const [logout] = useLogoutMutation();
 
   const logoutHandler = async () => {
     dispatch(handleLoading(true));
-    const logoutResult: any = await dispatch(logout()).unwrap();
+    const logoutResult = await logout().unwrap();
     const { message, success } = logoutResult;
     if (success) {
       navigate(`/${PageUrl.AUTH}/${PageUrl.LOGIN}`);

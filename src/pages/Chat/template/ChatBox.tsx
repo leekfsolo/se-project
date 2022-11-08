@@ -21,7 +21,7 @@ import { LogLevel } from "@microsoft/signalr/dist/esm/ILogger";
 import { IChatMessage } from "../interface";
 import { handleLoading } from "../../../app/globalSlice";
 import dayjs from "dayjs";
-import { useGetChatDataQuery } from "../chatSlice";
+import { useGetChatDataQuery } from "../chatApiSlice";
 
 const ChatBox = () => {
   const [messageInputValue, setMessageInputValue] = useState<string>("");

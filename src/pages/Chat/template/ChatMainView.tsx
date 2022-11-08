@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import ChatList from "./ChatList";
 import { MainContainer } from "@chatscope/chat-ui-kit-react";
 import { PageUrl } from "../../../configuration/enum";
-import { useGetChatListQuery } from "../chatSlice";
+import { useGetChatListQuery } from "../chatApiSlice";
 
 type Props = {};
 

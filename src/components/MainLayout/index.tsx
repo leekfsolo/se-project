@@ -3,8 +3,11 @@ import { useSelector } from "react-redux";
 import { handleLoading } from "../../app/globalSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { authSelector } from "../../app/selector";
-import { getMyInfo } from "../../pages/Auth/authSlice";
-import { getUserAvatar, getUserRole } from "../../pages/Profile/userSlice";
+import { useGetMyInfoQuery } from "../../pages/Auth/authApiSlice";
+import {
+  useGetAvatarQuery,
+  useGetRoleQuery,
+} from "../../pages/Profile/userApiSlice";
 import Footer from "../Footer";
 import Header from "../Header";
 
@@ -15,18 +18,14 @@ type Props = {
 const MainLayout = (props: Props) => {
   const dispatch = useAppDispatch();
   const userId = useSelector(authSelector).auth.id;
+  const { isLoading: isLoadingInfo } = useGetMyInfoQuery();
+  const { isLoading: isLoadingRole } = useGetRoleQuery(userId);
+  const { isLoading: isLoadingAvatar } = useGetAvatarQuery(userId);
+  const isLoading = isLoadingAvatar || isLoadingInfo || isLoadingRole;
 
   useEffect(() => {
-    dispatch(handleLoading(true));
-    const fetchData = async () => {
-      await dispatch(getMyInfo());
-      await dispatch(getUserRole(userId));
-      await dispatch(getUserAvatar(userId));
-      dispatch(handleLoading(false));
-    };
-
-    fetchData();
-  }, []);
+    dispatch(handleLoading(isLoading));
+  }, [isLoading, dispatch]);
 
   return (
     <div className="d-flex flex-column h-100">

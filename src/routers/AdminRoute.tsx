@@ -1,12 +1,11 @@
 /** @format */
 
-import React, { FC, ReactElement, useEffect, useState } from "react";
+import React, { FC, ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch } from "../app/hooks";
 import { authSelector } from "../app/selector";
 import { PageUrl } from "../configuration/enum";
-import { getUserRole } from "../pages/Profile/userSlice";
+import { useGetRoleQuery } from "../pages/Profile/userApiSlice";
 import useGetJWT from "../utils/hooks/useGetJWT";
 
 interface Props {
@@ -15,19 +14,10 @@ interface Props {
 
 const AdminRoute: FC<Props> = (props: Props) => {
   const { children } = props;
-  const dispatch = useAppDispatch();
-  const [isAdmin, setIsAdmin] = useState<boolean>(true);
-  const isAuthenticated = useGetJWT() ? true : false;
   const userId = useSelector(authSelector).auth.id;
-
-  useEffect(() => {
-    const getRoleHandle = async () => {
-      const result: any = await dispatch(getUserRole(userId)).unwrap();
-      setIsAdmin(result.data === "auth.roles.officer");
-    };
-
-    getRoleHandle();
-  }, []);
+  const { data } = useGetRoleQuery(userId);
+  const isAuthenticated = useGetJWT() ? true : false;
+  const isAdmin = data === "auth.roles.officer";
 
   return isAdmin && isAuthenticated ? (
     <>{children}</>

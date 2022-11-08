@@ -7,18 +7,18 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { IFormSignup } from "./interface";
+import { IFormSignup } from "../interface";
 import { handleLoading } from "../../../app/globalSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { PageUrl } from "../../../configuration/enum";
-import { authenticate } from "../authSlice";
 import customToast, {
   ToastType,
 } from "../../../components/CustomToast/customToast";
 import AuthLoginOptions from "./AuthLoginOptions";
 import PreloadingWrapper from "../../../components/PreloadingWrapper/PreloadingWrapper";
 import useLoading from "../../../utils/hooks/useLoading";
-import { signup } from "../../Profile/userSlice";
+import { useLoginMutation } from "../authApiSlice";
+import { useRegisterMutation } from "../../Profile/userApiSlice";
 
 const AuthSignup = () => {
   const [checkboxValue, setCheckboxValue] = useState<boolean>(false);
@@ -26,6 +26,8 @@ const AuthSignup = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [login] = useLoginMutation();
+  const [signup] = useRegisterMutation();
 
   const navigateTo = (path: string) => {
     dispatch(handleLoading(true));
@@ -34,18 +36,20 @@ const AuthSignup = () => {
   const submitFormHandler: SubmitHandler<IFormSignup> = async (data) => {
     dispatch(handleLoading(true));
 
-    const signupResponse: any = await dispatch(signup(data)).unwrap();
+    const signupResponse: any = await signup(data).unwrap();
     const { success, message } = signupResponse;
     const msgValue = t(`${message}`);
 
     if (success) {
       customToast(ToastType.SUCCESS, msgValue);
+      const { username, password } = data;
 
-      const signInResponse: any = await dispatch(
-        authenticate({ username: data.username, password: data.password })
-      ).unwrap();
+      const loginResponse = await login({ username, password }).unwrap();
+      const { success } = loginResponse;
 
-      if (signInResponse.success) navigateTo(`../${PageUrl.ROLES}`);
+      if (success) {
+        navigateTo(`../${PageUrl.ROLES}`);
+      }
     } else {
       customToast(ToastType.ERROR, msgValue);
     }

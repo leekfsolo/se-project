@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { IFormInfo, PersonalInfo } from "../../Auth/template/interface";
+import { IFormInfo, IPersonalInfo } from "../../Auth/interface";
 import { useAppDispatch } from "../../../app/hooks";
 import { handleLoading } from "../../../app/globalSlice";
 import { useTranslation } from "react-i18next";
@@ -18,7 +18,7 @@ import customToast, {
 } from "../../../components/CustomToast/customToast";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import { updateInfo } from "../userSlice";
+import { useUpdateInfoMutation } from "../userApiSlice";
 
 type Props = {
   data: IFormInfo;
@@ -41,8 +41,9 @@ const ProfileDetail = (props: Props) => {
   });
   const [initBirthDate, setInitBirthDate] = useState<Dayjs | null>(dayjs());
   const dispatch = useAppDispatch();
+  const [updateInfo] = useUpdateInfoMutation();
 
-  const personalInfo: Array<PersonalInfo> = [
+  const personalInfo: Array<IPersonalInfo> = [
     {
       label: "field.fullname",
       id: "fullname",
@@ -63,7 +64,7 @@ const ProfileDetail = (props: Props) => {
 
   const submitFormHandler: SubmitHandler<IFormInfo> = async (data) => {
     dispatch(handleLoading(true));
-    const updateResponse: any = await dispatch(updateInfo(data)).unwrap();
+    const updateResponse: any = await updateInfo(data).unwrap();
     const { success, message } = updateResponse;
     const msgValue = t(`${message}`);
 

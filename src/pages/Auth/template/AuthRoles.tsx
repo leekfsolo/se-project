@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -13,10 +13,13 @@ import customToast, {
 import { useNavigate } from "react-router-dom";
 import { PageUrl } from "../../../configuration/enum";
 import PreloadingWrapper from "../../../components/PreloadingWrapper/PreloadingWrapper";
-import { getRoles, updateUserRole } from "../../Profile/userSlice";
-import { UserRole } from "./interface";
+import { IUserRole } from "../interface";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../../app/selector";
+import {
+  useGetRolesQuery,
+  useUpdateRoleMutation,
+} from "../../Profile/userApiSlice";
 
 const AuthRoles = () => {
   const { t } = useTranslation();
@@ -24,6 +27,8 @@ const AuthRoles = () => {
   const navigate = useNavigate();
   const auth = useSelector(authSelector).auth;
   const { id: userId } = auth;
+  const [updateUserRole] = useUpdateRoleMutation();
+  const { data, isSuccess } = useGetRolesQuery();
 
   const iconRoles = [
     <ShoppingCartOutlinedIcon fontSize="large" />,
@@ -31,8 +36,20 @@ const AuthRoles = () => {
     <DvrOutlinedIcon fontSize="large" />,
   ];
 
+  let userRoles: IUserRole[] = [];
+  if (isSuccess) {
+    userRoles = iconRoles.map((icon, idx) => {
+      const { roleId, name, description } = data[idx];
+      return {
+        icon,
+        id: roleId,
+        label: name,
+        description,
+      };
+    });
+  }
+
   const [activeRole, setActiveRole] = useState<number>(0);
-  const [userRoles, setUserRoles] = useState<UserRole[] | null>(null);
 
   const navigateTo = (path: string) => {
     dispatch(handleLoading(true));
@@ -41,9 +58,10 @@ const AuthRoles = () => {
 
   const handleClickRole = async (roleId: string) => {
     dispatch(handleLoading(true));
-    const updateRoleResponse: any = await dispatch(
-      updateUserRole({ userId, roleId })
-    ).unwrap();
+    const updateRoleResponse = await updateUserRole({
+      userId,
+      roleId,
+    }).unwrap();
     const { success, message } = updateRoleResponse;
     const msgValue = t(`${message}`);
 
@@ -57,30 +75,6 @@ const AuthRoles = () => {
 
     dispatch(handleLoading(false));
   };
-
-  useEffect(() => {
-    dispatch(handleLoading(true));
-    const fetchData = async () => {
-      const dataResult: any = await dispatch(getRoles()).unwrap();
-      const { success, data } = dataResult;
-
-      if (success) {
-        const newUserRoles = iconRoles.map((icon, idx) => {
-          const { roleId, name, description } = data[idx];
-          return {
-            icon,
-            id: roleId,
-            label: name,
-            description,
-          };
-        });
-        setUserRoles(newUserRoles);
-      }
-      dispatch(handleLoading(false));
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <PreloadingWrapper>

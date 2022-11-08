@@ -8,10 +8,9 @@ import InputAdornment from "@mui/material/InputAdornment";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LockIcon from "@mui/icons-material/Lock";
 import Button from "@mui/material/Button";
-import { IFormSignin } from "./interface";
+import { IFormSignin } from "../interface";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { handleLoading } from "../../../app/globalSlice";
-import { authenticate } from "../authSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { PageUrl } from "../../../configuration/enum";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,12 +20,14 @@ import customToast, {
 import AuthLoginOptions from "./AuthLoginOptions";
 import PreloadingWrapper from "../../../components/PreloadingWrapper/PreloadingWrapper";
 import useLoading from "../../../utils/hooks/useLoading";
+import { useLoginMutation } from "../authApiSlice";
 
 const AuthLogin = () => {
   const { handleSubmit, control } = useForm<IFormSignin>();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [login] = useLoginMutation();
 
   const navigateTo = (path: string) => {
     dispatch(handleLoading(true));
@@ -35,7 +36,7 @@ const AuthLogin = () => {
   const submitFormHandler: SubmitHandler<IFormSignin> = async (data) => {
     try {
       dispatch(handleLoading(true));
-      const loginResponse: any = await dispatch(authenticate(data)).unwrap();
+      const loginResponse = await login(data).unwrap();
       const { success, message } = loginResponse;
       const msgValue = t(`${message}`);
       if (success) {

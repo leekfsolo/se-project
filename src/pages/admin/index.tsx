@@ -12,17 +12,18 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { PageUrl } from "../../configuration/enum";
 import { useAppDispatch } from "../../app/hooks";
 import { handleLoading } from "../../app/globalSlice";
-import { logout } from "../Auth/authSlice";
 import customToast, {
   ToastType,
 } from "../../components/CustomToast/customToast";
 import { useTranslation } from "react-i18next";
+import { useLogoutMutation } from "../Auth/authApiSlice";
 
 const Admin = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const contentRef = useRef<any>(null);
+  const [logout] = useLogoutMutation();
 
   const [sidenavOptions, setSidenavOptions] = useState<
     Array<AdminSidenavOption>
@@ -72,7 +73,7 @@ const Admin = () => {
 
   const logoutHandler = async () => {
     dispatch(handleLoading(true));
-    const logoutResult: any = await dispatch(logout()).unwrap();
+    const logoutResult = await logout().unwrap();
     const { message, success } = logoutResult;
     if (success) {
       navigate(`/${PageUrl.AUTH}/${PageUrl.LOGIN}`);

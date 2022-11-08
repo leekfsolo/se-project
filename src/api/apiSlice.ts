@@ -1,14 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import queryString from "query-string";
-import { RootState } from "../app/store";
 import Config from "../configuration";
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: Config.apiConfig.endPoint + "/api",
-    prepareHeaders(headers, { getState }) {
-      const token = (getState() as RootState).auth.auth.token;
+    prepareHeaders(headers) {
+      const token = localStorage.getItem(Config.storageKey.auth);
 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -18,6 +17,5 @@ export const apiSlice = createApi({
     },
     paramsSerializer: (params) => queryString.stringify(params),
   }),
-  tagTypes: ["Chat"],
   endpoints: (builder) => ({}),
 });

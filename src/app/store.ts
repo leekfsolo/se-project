@@ -2,21 +2,24 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../pages/Auth/authSlice";
 import globalReducer from "./globalSlice";
 import userReducer from "../pages/Profile/userSlice";
-import { chatSlice } from "../pages/Chat/chatSlice";
-// import chatReducer from "../pages/Chat/chatSlice";
+import { chatApiSlice } from "../pages/Chat/chatApiSlice";
+import { authApiSlice } from "../pages/Auth/authApiSlice";
+import { apiSlice } from "../api/apiSlice";
+import { userApiSlice } from "../pages/Profile/userApiSlice";
 
 const rootReducer = {
   auth: authReducer,
   user: userReducer,
   global: globalReducer,
-  // chat: chatReducer,
-  [chatSlice.reducerPath]: chatSlice.reducer,
+  [authApiSlice.reducerPath]: authApiSlice.reducer,
+  [chatApiSlice.reducerPath]: chatApiSlice.reducer,
+  [userApiSlice.reducerPath]: userApiSlice.reducer,
 };
 
 const store = configureStore({
   reducer: rootReducer,
   middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware().concat(chatSlice.middleware);
+    return getDefaultMiddleware().concat(apiSlice.middleware);
   },
 });
 
